@@ -55,8 +55,8 @@ class GeradorPacote():
     def enviarPacotes(self):
         t = 0x0
         while self.__ok:
-            if t == 0x0:
-                if self.varredura == 0xc8 or self.varredura == 0x0:
+            if t == 0:
+                if self.varredura >= 200 or self.varredura == 0:
                     # housekeeping
                     sleep(6.4) # 2 * 0.8, pois e o tempo de cada varredura
                     t = self.__tempo
@@ -64,7 +64,10 @@ class GeradorPacote():
                     #pacote com o housekeeping e uma varredura
                     self.varredura = 0x0 #caso a varredura seja igual a 200 ela e zerada
                     self.__pacotesGerados.adicionarPacotes(self.criarHousekeeping(self.varredura, t))
-                    self.varredura = 0x1
+                    self.varredura = 197
+
+                    if t != 0:
+                        self.varredura = 0
 
                 else:
                     # modo normal
@@ -85,7 +88,7 @@ class GeradorPacote():
                     self.varredura += 0x1
 
             else:
-                if self.varredura == 0x320 or self.varredura == 0x0:
+                if self.varredura >= 800 or self.varredura == 0:
                     # housekeeping
                     sleep(1.6)  # 2 * 1.6, pois e o tempo de cada varredura
                     t = self.__tempo
@@ -93,11 +96,13 @@ class GeradorPacote():
                     # pacote com o housekeeping e uma varredura
                     self.varredura = 0x0  # caso a varredura seja igual a 800 ela e zerada
                     self.__pacotesGerados.adicionarPacotes(self.criarHousekeeping(self.varredura, t))
-                    self.varredura += 0x1
+                    self.varredura = 0x1
+
+                    if t != 1:
+                        self.varredura = 0
 
                 else:
                     # modo normal
-
                     # 5 pacotes com 2 varreduras cada
                     for i in range(0,4):
                         sleep(1.6) #2* 0.8, pois e o tempo de cada varredura
