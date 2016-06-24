@@ -64,7 +64,7 @@ class GeradorPacote():
                     #pacote com o housekeeping e uma varredura
                     self.varredura = 0x0 #caso a varredura seja igual a 200 ela e zerada
                     self.__pacotesGerados.adicionarPacotes(self.criarHousekeeping(self.varredura, t))
-                    self.varredura = 197
+                    self.varredura = 0x0
 
                     if t != 0:
                         self.varredura = 0
